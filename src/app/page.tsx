@@ -34,7 +34,9 @@ export default function GfoxHome() {
     whatsapp2: '5597981232504',
     whatsapp2Formatado: '(97) 98123-2504',
     endereco: 'Rua Rosângela Coca, 168 - Jardim Lara, Tefé - AM, CEP 69557-215',
-    chavePix: 'tjrios3745@gmail.com',
+    chavePix: '97984326004',
+    pixFavorecido: 'RAYANA LIMA',
+    pixBanco: 'Cloudwalk IP LTDA',
   };
 
   const [clienteNome, setClienteNome] = useState('');
@@ -160,18 +162,18 @@ export default function GfoxHome() {
     doc.setFillColor(76, 29, 149);
     doc.rect(0, 0, 210, 54, 'F');
 
-    // Cápsula Branca para Alto Contraste da Logo no PDF
+    // Cápsula Branca de Contraste para a Logo
     doc.setFillColor(255, 255, 255);
     doc.roundedRect(12, 6, 32, 42, 3, 3, 'F');
 
-    // Inserção da Logo Vertical centralizada dentro do card branco
+    // Inserção da Logo Vertical
     const logoImg = new Image();
     logoImg.src = '/logo-gfox-vertical.png';
     try {
       doc.addImage(logoImg, 'PNG', 14, 8, 28, 38);
     } catch (e) {}
 
-    // Identidade e Contatos Oficiais
+    // Cabeçalho da Empresa
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
     doc.setTextColor(251, 191, 36);
@@ -272,19 +274,24 @@ export default function GfoxHome() {
     doc.text('• Logotipos/Modelos: R$ 100,00 com 2 alterações inclusas (+R$ 20,00 por extra).', 14, finalY + 27);
     doc.text('• Fazemos Entrega em Tefé - AM.', 14, finalY + 33);
 
-    // Box Pix
+    // Box Pix Oficial com os dados da Rayana Lima
     doc.setFillColor(245, 243, 255);
     doc.setDrawColor(221, 214, 254);
-    doc.roundedRect(14, finalY + 40, 182, 18, 2, 2, 'FD');
+    doc.roundedRect(14, finalY + 40, 182, 22, 2, 2, 'FD');
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
     doc.setTextColor(76, 29, 149);
-    doc.text('CHAVE PIX PARA ENTRADA (50%):', 18, finalY + 47);
+    doc.text(`DADOS PARA PAGAMENTO PIX (50% DE ENTRADA: R$ ${entrada.toFixed(2)}):`, 18, finalY + 47);
 
     doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
     doc.setTextColor(109, 40, 217);
-    doc.text(`Chave Pix: ${dadosGrafica.chavePix}  |  Valor do Sinal: R$ ${entrada.toFixed(2)}`, 18, finalY + 53);
+    doc.text(
+      `Chave Pix (Telefone): ${dadosGrafica.chavePix}  |  Favorecido: ${dadosGrafica.pixFavorecido}  |  Instituição: ${dadosGrafica.pixBanco}`,
+      18,
+      finalY + 55
+    );
 
     doc.setFontSize(8);
     doc.setTextColor(148, 163, 184);
@@ -309,6 +316,7 @@ export default function GfoxHome() {
       `*Itens Solicitados:*%0A${itensMensagem}%0A%0A` +
       `*Valor Total:* R$ ${resultado.valor_total.toFixed(2)}%0A` +
       `*Sinal de Entrada (50%):* R$ ${entrada.toFixed(2)}%0A` +
+      `*Chave Pix para Entrada:* ${dadosGrafica.chavePix} (${dadosGrafica.pixFavorecido} - ${dadosGrafica.pixBanco})%0A` +
       `*Forma de Pagamento:* Pix, Cartão Débito ou Crédito%0A` +
       `*Prazo:* 7 dias úteis após validação da arte%0A%0A` +
       `Gerei o orçamento pelo site e gostaria de confirmar a produção e envio da arte!`;
@@ -558,13 +566,26 @@ export default function GfoxHome() {
                   </div>
                 </div>
 
+                {/* Box Pix na Tela */}
+                <div className="bg-purple-950/60 border border-purple-800/80 rounded-xl p-3.5 space-y-1">
+                  <div className="text-xs font-bold text-amber-400">
+                    Chave Pix para Pagamento da Entrada (50%):
+                  </div>
+                  <div className="text-xs text-slate-200">
+                    <strong>Chave (Telefone):</strong> {dadosGrafica.chavePix}
+                  </div>
+                  <div className="text-xs text-slate-400">
+                    <strong>Favorecido:</strong> {dadosGrafica.pixFavorecido} • <strong>Instituição:</strong> {dadosGrafica.pixBanco}
+                  </div>
+                </div>
+
                 <div className="text-xs text-slate-400 bg-slate-900/80 p-3 rounded-lg space-y-1">
                   <div>⏱️ <strong>Prazo:</strong> 7 dias úteis após validação da arte e confirmação da entrada.</div>
                   <div>💳 <strong>Pagamento:</strong> Pix, Cartão de Débito e Crédito.</div>
                   <div>🚚 <strong>Entrega:</strong> Fazemos entrega em Tefé - AM.</div>
                 </div>
 
-                {/* Botões para Enviar no WhatsApp Escolhido */}
+                {/* Botões para Enviar no WhatsApp */}
                 <div className="space-y-2 pt-1">
                   <span className="text-xs font-bold uppercase text-purple-300 block text-center">
                     Confirmar Pedido Diretamente no WhatsApp:
