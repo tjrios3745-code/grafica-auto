@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     if (!apiKey) {
       console.error('ERRO: GEMINI_API_KEY não configurada no .env.local');
       return NextResponse.json(
-        { error: 'Chave GEMINI_API_KEY não encontrada no arquivo .env.local' },
+        { error: 'Chave GEMINI_API_KEY não encontrada nas variáveis de ambiente.' },
         { status: 500 }
       );
     }
@@ -30,7 +30,7 @@ DADOS INSTITUCIONAIS DA EMPRESA:
 - WhatsApp 1: (97) 98432-6004
 - WhatsApp 2: (97) 98123-2504
 - Endereço: Rua Rosângela Coca, 168 - Jardim Lara, Tefé - AM, CEP 69557-215
-- Entregas: Fazemos Entrega
+- Entregas: Fazemos Entrega em Tefé - AM
 - Pagamento: Pix, Cartão de Débito e Crédito
 
 REGRAS OFICIAIS DE PRODUTOS E PREÇOS:
@@ -52,7 +52,7 @@ REGRAS OFICIAIS DE PRODUTOS E PREÇOS:
      • Cacharrel: R$ 50,00 un (Sem arte inclusa)
      • Dry Colmeia: R$ 60,00 un (Sem arte inclusa)
      • Dry 3D: R$ 70,00 un (Sem arte inclusa)
-   - Adicionais:
+   - Adicionais por camisa:
      • Manga comprida: + R$ 10,00 / unidade
      • Tamanho especial (XL e superiores): + R$ 10,00 / unidade
    - Grade Infantil (2 a 12 anos):
@@ -106,11 +106,10 @@ Retorne ESTRITAMENTE um JSON válido com esta estrutura:
   "condicoes_pagamento": "50% na encomenda e 50% na finalização"
 }`;
 
-    // Lista com nomes de modelos válidos e estáveis da API Gemini
+    // Modelos oficiais ativos suportados pela API
     const modelosAtivos = [
-      'gemini-2.5-flash',
-      'gemini-2.5-flash-lite',
-      'gemini-1.5-flash'
+      'gemini-3.6-flash',
+      'gemini-3.5-flash-lite'
     ];
 
     let response: any = null;
@@ -126,18 +125,18 @@ Retorne ESTRITAMENTE um JSON válido com esta estrutura:
 
         response = await Promise.race([
           chamadaComTimeout,
-          new Promise((_, reject) => setTimeout(() => reject(new Error(`Timeout no modelo ${mod}`)), 7000))
+          new Promise((_, reject) => setTimeout(() => reject(new Error(`Timeout no modelo ${mod}`)), 8000))
         ]);
 
         if (response?.text) break;
       } catch (err: any) {
-        console.warn(`Tentativa com modelo ${mod} falhou ou expirou:`, err?.message || err);
+        console.warn(`Tentativa com modelo ${mod} falhou:`, err?.message || err);
         ultimoErro = err;
       }
     }
 
     if (!response || !response.text) {
-      throw ultimoErro || new Error('Serviço temporariamente ocupado. Tente novamente em instantes.');
+      throw ultimoErro || new Error('Serviço temporariamente indisponível. Tente novamente em instantes.');
     }
 
     const dados = JSON.parse(response.text);
