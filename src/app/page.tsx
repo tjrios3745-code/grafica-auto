@@ -27,7 +27,7 @@ interface OrcamentoData {
 export default function GfoxHome() {
   const dadosGrafica = {
     nome: 'Gfox Gráfica e Soluções',
-    slogan: 'Gráfica Rápida & Estamparia',
+    slogan: 'Gráfica Rápida, Estamparia & Encadernação',
     site: 'www.graficagfox.com.br',
     whatsapp1: '5597984326004',
     whatsapp1Formatado: '(97) 98432-6004',
@@ -49,14 +49,17 @@ export default function GfoxHome() {
 
   const recognitionRef = useRef<any>(null);
 
-  const atalhosGfox = [
-    { label: '📖 Kit Caderneta de Saúde (R$ 80)', texto: '01 Kit Caderneta de Saúde com miolo padrão do Ministério da Saúde, capa dura wire-o, cartão do SUS, chaveiro, elástico e pasta' },
-    { label: '🛠️ Reforma Caderneta (R$ 50)', texto: '01 Reforma de Caderneta de Saúde antiga, capa dura wire-o com folhas adicionais, cartão do SUS, chaveiro e elástico' },
-    { label: '👕 10x Dry Colmeia (Atacado)', texto: '10 Camisas Dry Colméia adulto personalizadas, manga curta' },
-    { label: '👕 10x Cacharrel (Atacado)', texto: '10 Camisas em tecido Cacharrel personalizadas' },
-    { label: '✨ 10x Dry 3D Premium', texto: '10 Camisas Dry 3D personalizadas' },
-    { label: '👶 5x Infantil Cacharrel', texto: '05 Camisas infantis tamanho 8 em tecido Cacharrel' },
-    { label: '🎨 Criação de Logotipo/Arte', texto: 'Criação de logotipo e modelo exclusivo do zero' },
+  const atalhosCadernetas = [
+    { label: '📖 Kit Caderneta de Saúde', preco: 'R$ 80', texto: '01 Kit Caderneta de Saúde com miolo padrão do Ministério da Saúde, capa dura wire-o, cartão do SUS, chaveiro, elástico e pasta' },
+    { label: '🛠️ Reforma de Caderneta Antiga', preco: 'R$ 50', texto: '01 Reforma de Caderneta de Saúde antiga, capa dura wire-o com folhas adicionais, cartão do SUS, chaveiro e elástico' },
+  ];
+
+  const atalhosCamisas = [
+    { label: '👕 10x Dry Colmeia (Atacado)', preco: 'R$ 40/un', texto: '10 Camisas Dry Colméia adulto personalizadas, manga curta' },
+    { label: '👕 10x Cacharrel (Atacado)', preco: 'R$ 35/un', texto: '10 Camisas em tecido Cacharrel personalizadas' },
+    { label: '✨ 10x Dry 3D Premium', preco: 'R$ 50/un', texto: '10 Camisas Dry 3D personalizadas' },
+    { label: '👶 5x Infantil Cacharrel', preco: 'R$ 30/un', texto: '05 Camisas infantis tamanho 8 em tecido Cacharrel' },
+    { label: '🎨 Criação de Logotipo/Arte', preco: 'R$ 100', texto: 'Criação de logotipo e modelo exclusivo do zero' },
   ];
 
   function inserirAtalho(texto: string) {
@@ -162,7 +165,7 @@ export default function GfoxHome() {
     doc.setFillColor(76, 29, 149);
     doc.rect(0, 0, 210, 54, 'F');
 
-    // Cápsula Branca de Contraste para a Logo
+    // Cápsula Branca para Alto Contraste da Logo
     doc.setFillColor(255, 255, 255);
     doc.roundedRect(12, 6, 32, 42, 3, 3, 'F');
 
@@ -274,7 +277,7 @@ export default function GfoxHome() {
     doc.text('• Cadernetas: Capa dura wire-o, tema personalizado enviado pelo cliente.', 14, finalY + 27);
     doc.text('• Fazemos Entrega em Tefé - AM.', 14, finalY + 33);
 
-    // Box Pix Oficial
+    // Box Pix Oficial com os dados da Rayana Lima
     doc.setFillColor(245, 243, 255);
     doc.setDrawColor(221, 214, 254);
     doc.roundedRect(14, finalY + 40, 182, 22, 2, 2, 'FD');
@@ -318,30 +321,33 @@ export default function GfoxHome() {
       `*Sinal de Entrada (50%):* R$ ${entrada.toFixed(2)}%0A` +
       `*Chave Pix para Entrada:* ${dadosGrafica.chavePix} (${dadosGrafica.pixFavorecido} - ${dadosGrafica.pixBanco})%0A` +
       `*Forma de Pagamento:* Pix, Cartão Débito ou Crédito%0A` +
-      `*Prazo:* 7 dias úteis após validação da arte e entrada%0A%0A` +
-      `Gerei o orçamento pelo site e gostaria de confirmar a produção e envio do tema!`;
+      `*Prazo:* 7 dias úteis após validação da arte e confirmação da entrada%0A%0A` +
+      `Gerei o orçamento pelo site e gostaria de confirmar a produção e envio do tema/arte!`;
 
     window.open(`https://wa.me/${numeroEscolhido}?text=${textoZap}`, '_blank');
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-400 selection:text-slate-950 pb-12">
-      {/* Header com Logo em Destaque e Telefones Oficiais */}
-      <header className="border-b border-purple-900/40 bg-slate-950/90 backdrop-blur-md sticky top-0 z-50">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-400 selection:text-slate-950 pb-16 relative overflow-hidden">
+      {/* Luz ambiente de fundo (Glow Elegante para preencher telas grandes) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-purple-900/20 blur-[130px] rounded-full pointer-events-none" />
+
+      {/* Header Corporativo */}
+      <header className="border-b border-purple-900/30 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="p-1.5 rounded-xl bg-white shadow-md flex items-center justify-center">
+            <div className="p-1 rounded-xl bg-white shadow-md shadow-purple-950/40 flex items-center justify-center">
               <img
                 src="/logo-gfox-vertical.png"
                 alt="Gfox Gráfica e Soluções"
-                className="h-12 sm:h-14 w-auto object-contain"
+                className="h-11 sm:h-12 w-auto object-contain"
               />
             </div>
             <div>
               <span className="text-lg sm:text-xl font-black tracking-tight text-white block leading-none">
                 Gfox <span className="text-amber-400">Gráfica</span>
               </span>
-              <span className="text-[11px] text-purple-300 font-medium tracking-wide">
+              <span className="text-[11px] text-purple-300/90 font-medium tracking-wide">
                 Gráfica Rápida, Estamparia & Encadernação • Tefé - AM
               </span>
             </div>
@@ -352,47 +358,59 @@ export default function GfoxHome() {
               href={`https://wa.me/${dadosGrafica.whatsapp1}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-amber-300 bg-purple-950/80 hover:bg-purple-900 border border-purple-800/80 px-2.5 py-1 rounded-lg transition"
+              className="text-amber-300 bg-purple-950/80 hover:bg-purple-900/90 border border-purple-700/60 px-3 py-1.5 rounded-full transition shadow-sm font-medium flex items-center gap-1.5"
             >
-              📞 {dadosGrafica.whatsapp1Formatado}
+              <span>📱</span> {dadosGrafica.whatsapp1Formatado}
             </a>
             <a
               href={`https://wa.me/${dadosGrafica.whatsapp2}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-amber-300 bg-purple-950/80 hover:bg-purple-900 border border-purple-800/80 px-2.5 py-1 rounded-lg transition"
+              className="text-purple-200 bg-slate-900 hover:bg-slate-800 border border-purple-900/60 px-3 py-1.5 rounded-full transition shadow-sm font-medium flex items-center gap-1.5"
             >
-              📞 {dadosGrafica.whatsapp2Formatado}
+              <span>📱</span> {dadosGrafica.whatsapp2Formatado}
             </a>
           </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="max-w-3xl mx-auto px-4 pt-8 pb-4 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-800 text-purple-300 text-xs font-semibold mb-3">
-          <span>📍 {dadosGrafica.endereco}</span>
+      {/* Hero Central */}
+      <section className="max-w-3xl mx-auto px-4 pt-10 pb-5 text-center relative z-10">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/70 border border-purple-700/60 text-amber-400 text-xs font-bold tracking-wide mb-4 shadow-inner">
+          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Simulador Oficial de Orçamentos
         </div>
 
-        <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight mb-2">
-          Calcule seu orçamento em <span className="text-amber-400">segundos</span>
+        <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-3">
+          Calcule seu orçamento em <span className="text-amber-400 drop-shadow-[0_0_25px_rgba(251,191,36,0.25)]">segundos</span>
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto">
-          Cadernetas de Saúde personalizadas, camisas em Cacharrel e Dry, canecas e brindes. Entregamos em Tefé.
+        <p className="text-xs sm:text-sm text-slate-300/80 max-w-lg mx-auto">
+          Personalize cadernetas de saúde, camisas nos melhores tecidos, canecas e brindes sem esperar fila de atendimento.
         </p>
+
+        {/* Barra de Confiança / Benefícios Rápidos */}
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mt-4 text-[11px] text-purple-300/90 font-medium">
+          <span className="flex items-center gap-1">🚚 Entregamos em Tefé</span>
+          <span className="text-purple-600">•</span>
+          <span className="flex items-center gap-1">💳 Pix e Cartões</span>
+          <span className="text-purple-600">•</span>
+          <span className="flex items-center gap-1">⏱️ Prazo: 7 dias úteis</span>
+          <span className="text-purple-600">•</span>
+          <span className="flex items-center gap-1">🎨 100% Personalizado</span>
+        </div>
       </section>
 
-      {/* Formulário Interativo */}
-      <section className="max-w-3xl mx-auto px-4">
-        <div className="bg-slate-900/95 border border-purple-900/40 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-6">
+      {/* Card Principal da Calculadora */}
+      <main className="max-w-3xl mx-auto px-4 relative z-10">
+        <div className="bg-slate-900/90 backdrop-blur-md border border-purple-500/25 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_-15px_rgba(147,51,234,0.18)] space-y-7">
           
-          {/* Passo 1 */}
+          {/* Passo 1: Identificação */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-5 h-5 rounded-full bg-amber-400 text-purple-950 font-black text-xs flex items-center justify-center">1</span>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                Seus Dados
-              </h3>
+              <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center">1</span>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                Seus Dados (Para o Orçamento)
+              </h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <input
@@ -400,142 +418,170 @@ export default function GfoxHome() {
                 value={clienteNome}
                 onChange={(e) => setClienteNome(e.target.value)}
                 placeholder="Seu Nome Completo"
-                className="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:border-amber-400 focus:outline-none"
+                className="bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-400 focus:outline-none transition shadow-inner"
               />
               <input
                 type="text"
                 value={clienteTelefone}
                 onChange={(e) => setClienteTelefone(e.target.value)}
                 placeholder="Seu WhatsApp (ex: 97 98400-0000)"
-                className="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:border-amber-400 focus:outline-none"
+                className="bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-400 focus:outline-none transition shadow-inner"
               />
             </div>
           </div>
 
-          {/* Passo 2 */}
+          {/* Passo 2: O que orçar */}
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-amber-400 text-purple-950 font-black text-xs flex items-center justify-center">2</span>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                  O que você quer orçar?
-                </h3>
+                <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center">2</span>
+                <h2 className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                  O que você precisa produzir?
+                </h2>
               </div>
-              <span className="text-[11px] text-purple-300">Clique nas opções abaixo</span>
+              <span className="text-[11px] text-purple-300/80 font-medium">Toque nos atalhos rápidos</span>
             </div>
 
-            {/* Atalhos Rápidos Atualizados com Cadernetas */}
-            <div className="flex flex-wrap gap-1.5 mb-3">
-              {atalhosGfox.map((at, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => inserirAtalho(at.texto)}
-                  className="text-xs bg-purple-950/60 hover:bg-purple-900 border border-purple-800/80 text-purple-200 hover:text-amber-300 px-3 py-1.5 rounded-lg transition active:scale-95 cursor-pointer font-medium"
-                >
-                  {at.label}
-                </button>
-              ))}
+            {/* Atalhos Rápidos Agrupados por Categoria */}
+            <div className="space-y-2.5 mb-3.5">
+              {/* Cadernetas */}
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] uppercase font-bold text-amber-400/90 tracking-wider w-full sm:w-auto sm:mr-1">
+                  Cadernetas:
+                </span>
+                {atalhosCadernetas.map((at, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => inserirAtalho(at.texto)}
+                    className="text-xs bg-purple-950/70 hover:bg-purple-900 border border-purple-700/60 hover:border-amber-400/80 text-purple-100 px-3 py-1.5 rounded-lg transition active:scale-95 cursor-pointer font-medium flex items-center gap-1.5 group"
+                  >
+                    <span>{at.label}</span>
+                    <span className="bg-amber-400/20 group-hover:bg-amber-400 text-amber-300 group-hover:text-purple-950 font-black text-[10px] px-1.5 py-0.5 rounded transition">
+                      {at.preco}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Camisas e Estamparia */}
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] uppercase font-bold text-purple-300/90 tracking-wider w-full sm:w-auto sm:mr-1">
+                  Estamparia:
+                </span>
+                {atalhosCamisas.map((at, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => inserirAtalho(at.texto)}
+                    className="text-xs bg-slate-950/70 hover:bg-purple-950/60 border border-slate-800 hover:border-purple-600 text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer font-medium flex items-center gap-1.5"
+                  >
+                    <span>{at.label}</span>
+                    <span className="text-amber-400/90 text-[10px] font-bold">{at.preco}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
+            {/* Textarea */}
             <div className="relative">
               <textarea
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 focus:outline-none rounded-2xl p-4 text-sm text-slate-200 placeholder:text-slate-600 resize-none transition"
+                className="w-full bg-slate-950/90 border border-slate-800 focus:border-amber-400 focus:outline-none rounded-2xl p-4 text-sm text-slate-100 placeholder:text-slate-600 resize-none transition shadow-inner leading-relaxed"
                 rows={3}
-                placeholder="Exemplo: 'Quero um kit caderneta de saúde tema Safari e 5 camisas Dry Colmeia tamanho 8'..."
+                placeholder="Exemplo: '1 Kit Caderneta de Saúde tema Safari e 10 camisas Dry Colméia adulto tamanho M'..."
                 value={inputTexto}
                 onChange={(e) => setInputTexto(e.target.value)}
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 mt-3">
+            {/* Barra de Ações com Hierarquia Clara */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-3.5">
               <button
                 type="button"
                 onClick={alternarGravacao}
-                className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer border ${
+                className={`sm:w-1/3 py-3 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer border ${
                   gravando
-                    ? 'bg-red-500 text-white animate-pulse border-red-400 shadow-lg shadow-red-500/30'
-                    : 'bg-purple-950/70 hover:bg-purple-900/90 text-amber-400 border-purple-800'
+                    ? 'bg-red-600 text-white animate-pulse border-red-400 shadow-lg shadow-red-600/30'
+                    : 'bg-slate-950/90 hover:bg-purple-950/50 text-slate-300 hover:text-amber-300 border-slate-800 hover:border-purple-700'
                 }`}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                </svg>
-                {gravando ? '🔴 Gravando... Toque p/ parar' : '🎙️ Falar Pedido por Voz'}
+                <span className="text-sm">{gravando ? '🛑' : '🎙️'}</span>
+                <span>{gravando ? 'Ouvindo... Toque p/ parar' : 'Falar Pedido por Voz'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleCalcularOrcamento()}
                 disabled={loading || !inputTexto.trim()}
-                className="flex-1 py-3 px-6 rounded-xl bg-amber-400 hover:bg-amber-300 disabled:bg-slate-800 disabled:text-slate-600 text-purple-950 font-black text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-amber-400/10 cursor-pointer"
+                className="sm:w-2/3 py-3 px-6 rounded-xl bg-amber-400 hover:bg-amber-300 active:scale-[0.99] disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-slate-950 font-black text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-amber-400/10 cursor-pointer"
               >
                 {loading ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-purple-950 border-t-transparent rounded-full animate-spin"></div>
-                    Aplicando Tabela Gfox...
+                    <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
+                    <span>Calculando pela Tabela Oficial...</span>
                   </>
                 ) : (
-                  'Calcular Orçamento na Hora ➔'
+                  <span>Calcular Orçamento na Hora ➔</span>
                 )}
               </button>
             </div>
           </div>
 
           {erro && (
-            <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs">
-              <strong>Atenção:</strong> {erro}
+            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs flex items-center gap-2">
+              <span className="text-base">⚠️</span>
+              <span>{erro}</span>
             </div>
           )}
 
-          {/* Resultado */}
+          {/* Card de Resultado da Proposta Comercial */}
           {resultado && (
-            <div className="border-t border-purple-900/40 pt-5 space-y-4">
+            <div className="border-t border-purple-900/40 pt-6 space-y-5 animate-in fade-in duration-300">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div>
                   <span className="text-xs uppercase font-black tracking-widest text-amber-400">
                     Proposta Comercial Oficial
                   </span>
-                  <p className="text-xs text-slate-400">Itens e serviços calculados conforme tabela oficial</p>
+                  <p className="text-xs text-slate-400">Itens e serviços calculados conforme tabela oficial da gráfica</p>
                 </div>
                 <button
                   type="button"
                   onClick={gerarPDF}
-                  className="px-4 py-2 bg-purple-900/60 hover:bg-purple-800 text-purple-200 font-semibold text-xs rounded-xl border border-purple-700/60 transition flex items-center gap-2 cursor-pointer"
+                  className="px-4 py-2.5 bg-purple-900/70 hover:bg-purple-800 text-purple-100 font-bold text-xs rounded-xl border border-purple-600/70 transition flex items-center gap-2 cursor-pointer shadow-sm active:scale-95"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
                   Baixar Proposta em PDF
                 </button>
               </div>
 
-              <div className="bg-slate-950 border border-purple-900/40 rounded-2xl p-4 sm:p-5 space-y-4">
+              <div className="bg-slate-950/90 border border-purple-900/40 rounded-2xl p-5 space-y-4">
                 <div>
                   <h3 className="text-base font-bold text-slate-100">{resultado.titulo_servico}</h3>
-                  <p className="text-xs text-slate-400 mt-0.5">{resultado.descricao_geral}</p>
+                  <p className="text-xs text-slate-400 mt-1 leading-relaxed">{resultado.descricao_geral}</p>
                 </div>
 
                 {/* Tabela de Produtos */}
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-800 text-purple-300">
-                        <th className="pb-2">Especificação</th>
-                        <th className="pb-2 text-center">Quantidade</th>
-                        <th className="pb-2 text-right">Unitário</th>
-                        <th className="pb-2 text-right">Total</th>
+                      <tr className="border-b border-slate-800 text-purple-300/80">
+                        <th className="pb-2.5 font-bold">Item / Especificação</th>
+                        <th className="pb-2.5 text-center font-bold">Qtd</th>
+                        <th className="pb-2.5 text-right font-bold">Unitário</th>
+                        <th className="pb-2.5 text-right font-bold">Total</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-900 text-slate-300">
                       {resultado.itens.map((item, idx) => (
-                        <tr key={idx}>
-                          <td className="py-2.5">{item.descricao}</td>
-                          <td className="py-2.5 text-center font-medium">{item.quantidade || 1} un</td>
-                          <td className="py-2.5 text-right text-slate-400">
+                        <tr key={idx} className="hover:bg-purple-950/20 transition-colors">
+                          <td className="py-3 pr-2">{item.descricao}</td>
+                          <td className="py-3 px-2 text-center font-medium">{item.quantidade || 1} un</td>
+                          <td className="py-3 px-2 text-right text-slate-400">
                             {item.valor_unitario ? `R$ ${item.valor_unitario.toFixed(2)}` : '-'}
                           </td>
-                          <td className="py-2.5 text-right font-bold text-amber-400">
+                          <td className="py-3 pl-2 text-right font-bold text-amber-400">
                             R$ {item.valor_total.toFixed(2)}
                           </td>
                         </tr>
@@ -544,32 +590,32 @@ export default function GfoxHome() {
                   </table>
                 </div>
 
-                {/* Condição de Pagamento 50/50 */}
+                {/* Bloco Financeiro 50/50 */}
                 <div className="bg-purple-950/40 p-4 rounded-xl border border-purple-900/60 grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <span className="text-[11px] text-purple-300 block">Entrada de 50% (Sinal):</span>
+                    <span className="text-[11px] text-purple-300/80 block">Entrada de 50% (Sinal):</span>
                     <span className="text-lg font-black text-amber-300">
                       R$ {((resultado.entrada_50 || resultado.valor_total / 2)).toFixed(2)}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[11px] text-purple-300 block">Restante (na Entrega):</span>
+                    <span className="text-[11px] text-purple-300/80 block">Restante (na Entrega):</span>
                     <span className="text-lg font-black text-slate-200">
                       R$ {((resultado.restante_50 || resultado.valor_total / 2)).toFixed(2)}
                     </span>
                   </div>
                   <div className="sm:text-right border-t sm:border-t-0 border-purple-900/60 pt-2 sm:pt-0">
-                    <span className="text-[11px] text-purple-300 block">Valor Total:</span>
+                    <span className="text-[11px] text-purple-300/80 block">Valor Total do Pedido:</span>
                     <span className="text-xl font-black text-amber-400">
                       R$ {resultado.valor_total.toFixed(2)}
                     </span>
                   </div>
                 </div>
 
-                {/* Box Pix Oficial na Tela */}
-                <div className="bg-purple-950/60 border border-purple-800/80 rounded-xl p-3.5 space-y-1">
-                  <div className="text-xs font-bold text-amber-400">
-                    Chave Pix para Pagamento da Entrada (50%):
+                {/* Box Pix Oficial */}
+                <div className="bg-purple-950/50 border border-purple-800/80 rounded-xl p-3.5 space-y-1">
+                  <div className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                    <span>🔑</span> Chave Pix Oficial para o Sinal (50%):
                   </div>
                   <div className="text-xs text-slate-200">
                     <strong>Chave (Telefone):</strong> {dadosGrafica.chavePix}
@@ -579,22 +625,23 @@ export default function GfoxHome() {
                   </div>
                 </div>
 
-                <div className="text-xs text-slate-400 bg-slate-900/80 p-3 rounded-lg space-y-1">
-                  <div>⏱️ <strong>Prazo:</strong> 7 dias úteis após validação da arte e confirmação da entrada.</div>
-                  <div>💳 <strong>Pagamento:</strong> Pix, Cartão de Débito e Crédito.</div>
+                {/* Condições Comerciais em Evidência */}
+                <div className="text-xs text-slate-400 bg-slate-900/90 p-3.5 rounded-lg space-y-1.5 border border-slate-800/80">
+                  <div>⏱️ <strong>Prazo de Produção:</strong> 7 dias úteis após validação da arte e confirmação da entrada.</div>
+                  <div>💳 <strong>Formas de Pagamento:</strong> Pix, Cartão de Débito e Crédito.</div>
                   <div>🚚 <strong>Entrega:</strong> Fazemos entrega em Tefé - AM.</div>
                 </div>
 
-                {/* Botões para Enviar no WhatsApp */}
-                <div className="space-y-2 pt-1">
+                {/* Botões de Fechamento via WhatsApp */}
+                <div className="space-y-2 pt-2">
                   <span className="text-xs font-bold uppercase text-purple-300 block text-center">
                     Confirmar Pedido Diretamente no WhatsApp:
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <button
                       type="button"
                       onClick={() => fecharNoWhatsApp(dadosGrafica.whatsapp1)}
-                      className="py-3.5 px-3 bg-amber-400 hover:bg-amber-300 text-purple-950 font-black text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-amber-400/20 cursor-pointer active:scale-[0.99]"
+                      className="py-3.5 px-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-amber-400/20 cursor-pointer active:scale-[0.99]"
                     >
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.288.043.088.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.352.101.173.449.741.963 1.199.662.589 1.22.771 1.393.858.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z" />
@@ -617,10 +664,10 @@ export default function GfoxHome() {
             </div>
           )}
         </div>
-      </section>
+      </main>
 
       {/* Rodapé Oficial */}
-      <footer className="mt-8 text-center text-xs text-slate-500 space-y-1">
+      <footer className="mt-12 text-center text-xs text-slate-500 space-y-1 relative z-10">
         <p>© 2026 {dadosGrafica.nome} • {dadosGrafica.slogan}</p>
         <p>{dadosGrafica.endereco}</p>
       </footer>
