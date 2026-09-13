@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { prompt, clienteNome, clienteTelefone } = await req.json();
+    const { prompt, clienteNome } = await req.json();
 
     if (!prompt || typeof prompt !== 'string' || prompt.trim() === '') {
       return NextResponse.json(
@@ -33,62 +33,59 @@ DADOS INSTITUCIONAIS DA EMPRESA:
 - Entregas: Fazemos Entrega
 - Pagamento: Pix, Cartão de Débito e Crédito
 
-REGRAS OFICIAIS DE PREÇOS E PRODUTOS:
-1. TECIDOS:
-   - Cacharrel
-   - Dry Colmeia (ou Dry)
-   - Dry 3D
+REGRAS OFICIAIS DE PRODUTOS E PREÇOS:
 
-2. VALORES POR VOLUME:
-   - ATACADO (A partir de 10 unidades):
-     • Cacharrel: R$ 35,00 / unidade (Arte inclusa)
-     • Dry Colmeia: R$ 40,00 / unidade (Arte inclusa)
-     • Dry 3D: R$ 50,00 / unidade (Arte inclusa)
+1. CADERNETA DE SAÚDE PERSONALIZADA (TEMA À ESCOLHA DO CLIENTE):
+   - Características gerais: Capa dura, encadernação Wire-o, laminação (brilho ou fosca). Arte e modelo conforme cliente desejar (cliente envia a referência). Todos os itens personalizados no tema escolhido.
+   - Opção 1: REFORMA DE CADERNETA - R$ 50,00
+     Incluso: Reforma da caderneta de saúde antiga, folhas adicionais, Cartão do SUS personalizado, chaveiro personalizado e fecho em elástico com passante.
+   - Opção 2: KIT COMPLETO CADERNETA - R$ 80,00
+     Incluso: Caderneta completa com miolo padrão do Ministério da Saúde, folhas adicionais, Cartão do SUS personalizado, chaveiro personalizado, fecho em elástico com passante e pasta de documentos personalizada.
+
+2. CONFECÇÃO DE CAMISAS PERSONALIZADAS:
+   - Tecidos: Cacharrel, Dry Colmeia (ou Dry), Dry 3D.
+   - ATACADO (>= 10 unidades):
+     • Cacharrel: R$ 35,00 un (Arte inclusa)
+     • Dry Colmeia: R$ 40,00 un (Arte inclusa)
+     • Dry 3D: R$ 50,00 un (Arte inclusa)
    - VAREJO (1 a 9 unidades avulsas):
-     • Cacharrel: R$ 50,00 / unidade (Não inclui arte)
-     • Dry Colmeia: R$ 60,00 / unidade (Não inclui arte)
-     • Dry 3D: R$ 70,00 / unidade (Não inclui arte)
+     • Cacharrel: R$ 50,00 un (Sem arte inclusa)
+     • Dry Colmeia: R$ 60,00 un (Sem arte inclusa)
+     • Dry 3D: R$ 70,00 un (Sem arte inclusa)
+   - Adicionais:
+     • Manga comprida: + R$ 10,00 / unidade
+     • Tamanho especial (XL e superiores): + R$ 10,00 / unidade
+   - Grade Infantil (2 a 12 anos):
+     • Cacharrel: R$ 30,00 un | Dry: R$ 35,00 un
 
-3. TAMANHOS E ADICIONAIS POR PEÇA:
-   - Grade Adulto: PP, P, M, G, GG (preço padrão da tabela).
-   - Tamanho Especial XL e superiores: ACRESCENTA R$ 10,00 por peça sobre o valor base.
-   - Grade Infantil (2, 4, 6, 8, 10 e 12 anos):
-     • Cacharrel: R$ 30,00 / unidade
-     • Dry: R$ 35,00 / unidade
-   - Modelo Manga Comprida: ACRESCENTA R$ 10,00 por peça.
+3. CRIAÇÃO DE ARTE / LOGOTIPOS:
+   - Criação exclusiva do zero: R$ 100,00 (2 alterações inclusas; após isso +R$ 20,00 por alteração).
 
-4. CRIAÇÃO DE ARTE E LOGOTIPOS:
-   - Criação do zero de logotipo ou modelo de camisa: R$ 100,00 (permite 2 alterações dentro do serviço contratado; após isso acrescenta R$ 20,00 a cada alteração).
-   - Em pedidos de camisas a partir de 10 unidades a arte da camisa já é inclusa.
-
-5. OUTROS ITENS GRÁFICOS (se solicitados):
-   - Caneca cerâmica resinada: R$ 28,00 un (a partir de 5 un: R$ 25,00).
+4. OUTROS MATERIAIS GRÁFICOS:
+   - Caneca cerâmica resinada: R$ 28,00 un (R$ 25,00 a partir de 5 un).
    - Panfletos 10x14cm (1000 un): R$ 180,00.
-   - Adesivos em vinil: R$ 50,00 m².
    - Banners em lona: R$ 65,00 m².
+   - Adesivos em vinil: R$ 50,00 m².
 
-6. TERMOS COMERCIAIS OBRIGATÓRIOS:
-   - Pagamento: 50% na encomenda do serviço e o restante na finalização.
-   - Prazo de entrega: 7 dias úteis a contar da finalização e confirmação da arte e do valor do pagamento inicial.
-   - Formas: Pix, Cartão de Débito e Crédito.
-   - Fazemos Entrega.
+5. TERMOS COMERCIAIS OBRIGATÓRIOS:
+   - 50% de entrada na encomenda do serviço e o restante de 50% na finalização/entrega.
+   - Prazo de entrega: 7 dias úteis a contar da finalização e confirmação da arte e do valor do pagamento inicial de 50%.
    - Validade da proposta: 7 dias corridos.
 `;
 
     const systemPrompt = `Você é o calculador oficial da Gfox Gráfica e Soluções (Tefé - AM).
-Analise o pedido do cliente e aplique rigorosamente as regras de preços:
+Analise o pedido do cliente e aplique com exatidão os preços e regras comerciais:
 
 ${regrasOficiaisGfox}
 
 Instruções:
-- Se a soma total das camisas for >= 10 un, aplique valor de atacado. Se for < 10 un, use varejo.
-- Adicione +R$ 10,00 por peça para manga comprida ou tamanho XL/superior quando mencionados.
-- Para tamanhos infantis (2 a 12 anos), adote o preço infantil correspondente.
-- Se o cliente não especificar o tecido, use Dry Colmeia por padrão.
-- Separe cada produto em um item com quantidade, valor unitário e total.
-- Calcule entrada_50 (50% do total) e restante_50 (50% do total).
+- Se o cliente pedir Reforma de Caderneta de Saúde, aplique R$ 50,00.
+- Se o cliente pedir Kit Caderneta de Saúde, aplique R$ 80,00.
+- Nas cadernetas, liste os itens inclusos (cartão do SUS, chaveiro, pasta, elástico com passante, etc.) na descrição.
+- Para camisas, observe o volume (>= 10 atacado, < 10 varejo) e adicionais de manga longa/XL.
+- Calcule entrada_50 (50%) e restante_50 (50%).
 
-Retorne ESTRITAMENTE um JSON válido com este formato:
+Retorne ESTRITAMENTE um JSON válido com esta estrutura:
 {
   "cliente_nome": "${clienteNome || 'Cliente'}",
   "titulo_servico": string,
@@ -109,11 +106,11 @@ Retorne ESTRITAMENTE um JSON válido com este formato:
   "condicoes_pagamento": "50% na encomenda e 50% na finalização"
 }`;
 
-    // Modelos atuais rápidos da Google GenAI
+    // Lista com nomes de modelos válidos e estáveis da API Gemini
     const modelosAtivos = [
-      'gemini-3.7-flash',
-      'gemini-3.5-flash-lite',
-      'gemini-3.6-flash'
+      'gemini-2.5-flash',
+      'gemini-2.5-flash-lite',
+      'gemini-1.5-flash'
     ];
 
     let response: any = null;
@@ -121,7 +118,6 @@ Retorne ESTRITAMENTE um JSON válido com este formato:
 
     for (const mod of modelosAtivos) {
       try {
-        // Timeout de segurança por chamada para não prender a tela
         const chamadaComTimeout = ai.models.generateContent({
           model: mod,
           contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nPedido do Cliente:\n"${prompt}"` }] }],
@@ -135,13 +131,13 @@ Retorne ESTRITAMENTE um JSON válido com este formato:
 
         if (response?.text) break;
       } catch (err: any) {
-        console.warn(`Tentativa com ${mod} falhou ou expirou:`, err?.message || err);
+        console.warn(`Tentativa com modelo ${mod} falhou ou expirou:`, err?.message || err);
         ultimoErro = err;
       }
     }
 
     if (!response || !response.text) {
-      throw ultimoErro || new Error('Serviço temporariamente congestionado. Tente novamente em alguns instantes.');
+      throw ultimoErro || new Error('Serviço temporariamente ocupado. Tente novamente em instantes.');
     }
 
     const dados = JSON.parse(response.text);

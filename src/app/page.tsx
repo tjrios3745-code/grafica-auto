@@ -50,12 +50,13 @@ export default function GfoxHome() {
   const recognitionRef = useRef<any>(null);
 
   const atalhosGfox = [
+    { label: '📖 Kit Caderneta de Saúde (R$ 80)', texto: '01 Kit Caderneta de Saúde com miolo padrão do Ministério da Saúde, capa dura wire-o, cartão do SUS, chaveiro, elástico e pasta' },
+    { label: '🛠️ Reforma Caderneta (R$ 50)', texto: '01 Reforma de Caderneta de Saúde antiga, capa dura wire-o com folhas adicionais, cartão do SUS, chaveiro e elástico' },
     { label: '👕 10x Dry Colmeia (Atacado)', texto: '10 Camisas Dry Colméia adulto personalizadas, manga curta' },
     { label: '👕 10x Cacharrel (Atacado)', texto: '10 Camisas em tecido Cacharrel personalizadas' },
     { label: '✨ 10x Dry 3D Premium', texto: '10 Camisas Dry 3D personalizadas' },
     { label: '👶 5x Infantil Cacharrel', texto: '05 Camisas infantis tamanho 8 em tecido Cacharrel' },
-    { label: '➕ 10x Manga Longa XL', texto: '10 Camisas Dry Colméia manga comprida tamanho XL' },
-    { label: '🎨 Criação de Logotipo/Arte', texto: 'Criação de logotipo e modelo de camisa exclusivo do zero' },
+    { label: '🎨 Criação de Logotipo/Arte', texto: 'Criação de logotipo e modelo exclusivo do zero' },
   ];
 
   function inserirAtalho(texto: string) {
@@ -135,7 +136,6 @@ export default function GfoxHome() {
         body: JSON.stringify({
           prompt: inputTexto,
           clienteNome: clienteNome || 'Cliente',
-          clienteTelefone: clienteTelefone || '',
         }),
       });
 
@@ -271,10 +271,10 @@ export default function GfoxHome() {
     doc.setTextColor(71, 85, 105);
     doc.text('• Prazo: 7 dias úteis após aprovação da arte e confirmação da entrada.', 14, finalY + 15);
     doc.text('• Pagamento: 50% na encomenda e restante na entrega (Pix, Débito e Crédito).', 14, finalY + 21);
-    doc.text('• Logotipos/Modelos: R$ 100,00 com 2 alterações inclusas (+R$ 20,00 por extra).', 14, finalY + 27);
+    doc.text('• Cadernetas: Capa dura wire-o, tema personalizado enviado pelo cliente.', 14, finalY + 27);
     doc.text('• Fazemos Entrega em Tefé - AM.', 14, finalY + 33);
 
-    // Box Pix Oficial com os dados da Rayana Lima
+    // Box Pix Oficial
     doc.setFillColor(245, 243, 255);
     doc.setDrawColor(221, 214, 254);
     doc.roundedRect(14, finalY + 40, 182, 22, 2, 2, 'FD');
@@ -318,8 +318,8 @@ export default function GfoxHome() {
       `*Sinal de Entrada (50%):* R$ ${entrada.toFixed(2)}%0A` +
       `*Chave Pix para Entrada:* ${dadosGrafica.chavePix} (${dadosGrafica.pixFavorecido} - ${dadosGrafica.pixBanco})%0A` +
       `*Forma de Pagamento:* Pix, Cartão Débito ou Crédito%0A` +
-      `*Prazo:* 7 dias úteis após validação da arte%0A%0A` +
-      `Gerei o orçamento pelo site e gostaria de confirmar a produção e envio da arte!`;
+      `*Prazo:* 7 dias úteis após validação da arte e entrada%0A%0A` +
+      `Gerei o orçamento pelo site e gostaria de confirmar a produção e envio do tema!`;
 
     window.open(`https://wa.me/${numeroEscolhido}?text=${textoZap}`, '_blank');
   }
@@ -342,7 +342,7 @@ export default function GfoxHome() {
                 Gfox <span className="text-amber-400">Gráfica</span>
               </span>
               <span className="text-[11px] text-purple-300 font-medium tracking-wide">
-                Gráfica Rápida & Estamparia • Tefé - AM
+                Gráfica Rápida, Estamparia & Encadernação • Tefé - AM
               </span>
             </div>
           </div>
@@ -378,7 +378,7 @@ export default function GfoxHome() {
           Calcule seu orçamento em <span className="text-amber-400">segundos</span>
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto">
-          Tecidos Cacharrel, Dry Colméia e Dry 3D. Fazemos entrega em Tefé e aceitamos Pix e Cartão (Débito/Crédito).
+          Cadernetas de Saúde personalizadas, camisas em Cacharrel e Dry, canecas e brindes. Entregamos em Tefé.
         </p>
       </section>
 
@@ -424,7 +424,7 @@ export default function GfoxHome() {
               <span className="text-[11px] text-purple-300">Clique nas opções abaixo</span>
             </div>
 
-            {/* Chips Rápidos Gfox */}
+            {/* Atalhos Rápidos Atualizados com Cadernetas */}
             <div className="flex flex-wrap gap-1.5 mb-3">
               {atalhosGfox.map((at, idx) => (
                 <button
@@ -442,7 +442,7 @@ export default function GfoxHome() {
               <textarea
                 className="w-full bg-slate-950 border border-slate-800 focus:border-amber-400 focus:outline-none rounded-2xl p-4 text-sm text-slate-200 placeholder:text-slate-600 resize-none transition"
                 rows={3}
-                placeholder="Exemplo: '12 camisas Dry Colméia manga curta e 2 com manga longa tamanho XL'..."
+                placeholder="Exemplo: 'Quero um kit caderneta de saúde tema Safari e 5 camisas Dry Colmeia tamanho 8'..."
                 value={inputTexto}
                 onChange={(e) => setInputTexto(e.target.value)}
               />
@@ -496,7 +496,7 @@ export default function GfoxHome() {
                   <span className="text-xs uppercase font-black tracking-widest text-amber-400">
                     Proposta Comercial Oficial
                   </span>
-                  <p className="text-xs text-slate-400">Regras oficiais de atacado e adicionais calculadas</p>
+                  <p className="text-xs text-slate-400">Itens e serviços calculados conforme tabela oficial</p>
                 </div>
                 <button
                   type="button"
@@ -566,7 +566,7 @@ export default function GfoxHome() {
                   </div>
                 </div>
 
-                {/* Box Pix na Tela */}
+                {/* Box Pix Oficial na Tela */}
                 <div className="bg-purple-950/60 border border-purple-800/80 rounded-xl p-3.5 space-y-1">
                   <div className="text-xs font-bold text-amber-400">
                     Chave Pix para Pagamento da Entrada (50%):
